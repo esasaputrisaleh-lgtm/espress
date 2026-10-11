@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Needlt — Buy Smart, Save More</title>
+<style>
+:root{--green:#20b486;--green2:#dff8ee;--blue:#4f7cff;--yellow:#ffd45a;--orange:#ff9f43;--red:#ef6262;--ink:#203044;--muted:#6b7788;--bg:#f7fbfa;--white:#fff;--shadow:0 12px 35px rgba(32,48,68,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid #e8efed}
+.navin{max-width:1120px;margin:auto;padding:15px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-weight:900;font-size:25px;color:var(--green);letter-spacing:-1px}.logo span{color:var(--ink)}
+.links{display:flex;gap:18px;flex-wrap:wrap}.links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:700}.links a:hover{color:var(--green)}
+.menu{display:none;border:0;background:var(--green2);padding:9px 12px;border-radius:12px;font-size:20px}
+main{max-width:1120px;margin:auto;padding:0 22px}
+.hero{min-height:650px;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:40px;padding:65px 0}
+.badge{display:inline-flex;gap:8px;align-items:center;background:var(--green2);color:#137a5b;padding:8px 13px;border-radius:999px;font-size:13px;font-weight:800}
+h1{font-size:clamp(42px,6vw,72px);line-height:.98;letter-spacing:-3px;margin:18px 0 20px}.hero h1 span{color:var(--green)}
+.hero p{font-size:18px;line-height:1.7;color:var(--muted);max-width:600px}
+.btn{border:0;border-radius:14px;padding:13px 18px;font-weight:800;cursor:pointer;font-size:15px;transition:.2s}.btn:hover{transform:translateY(-2px)}.primary{background:var(--green);color:white}.secondary{background:white;color:var(--ink);border:1px solid #dfe8e5}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.mascotWrap{display:flex;justify-content:center}.mascot{width:320px;height:320px;background:linear-gradient(145deg,#e8fff6,#dce9ff);border-radius:42% 58% 55% 45%;display:grid;place-items:center;position:relative;box-shadow:var(--shadow);transform:rotate(2deg)}
+.mascot .face{font-size:125px;filter:drop-shadow(0 8px 8px rgba(0,0,0,.08));}.coin{position:absolute;right:12px;top:35px;font-size:55px}.spark{position:absolute;left:25px;bottom:40px;font-size:35px}
+.section{padding:75px 0}.section h2{text-align:center;font-size:38px;letter-spacing:-1.5px;margin:0 0 10px}.sub{text-align:center;color:var(--muted);max-width:700px;margin:0 auto 35px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:white;border:1px solid #e7eeec;border-radius:22px;padding:24px;box-shadow:var(--shadow)}.icon{font-size:34px}.card h3{margin:12px 0 7px}.card p{color:var(--muted);line-height:1.6;margin:0}
+.tool{background:white;border:1px solid #e7eeec;border-radius:26px;padding:30px;box-shadow:var(--shadow);max-width:850px;margin:auto}
+label{font-weight:800;font-size:14px;display:block;margin:15px 0 7px}input,textarea,select{width:100%;padding:13px 14px;border:1px solid #dce6e3;border-radius:12px;font:inherit;outline:none;background:#fbfdfc}input:focus,textarea:focus,select:focus{border-color:var(--green)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}.result{margin-top:20px;padding:18px;border-radius:17px;display:none}.result.show{display:block}.need{background:#e6f8ef;border:1px solid #a9e6cc}.want{background:#fff5d9;border:1px solid #f5dc86}.fomo{background:#ffe9e9;border:1px solid #f1aaaa}
+.progress{height:14px;background:#e9f0ee;border-radius:99px;overflow:hidden;margin:10px 0 18px}.bar{height:100%;width:0;background:var(--green);transition:.4s}
+.money{font-size:34px;font-weight:900}.muted{color:var(--muted)}
+.tipGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.tip{display:flex;gap:15px;align-items:flex-start;background:white;border:1px solid #e7eeec;border-radius:20px;padding:20px}.tip b{display:block;margin-bottom:5px}.tip p{margin:0;color:var(--muted);line-height:1.5}
+.fomoQ{padding:15px;background:#f8fbfa;border-radius:14px;margin:10px 0}.fomoQ p{margin:0 0 10px;font-weight:750}.choice{display:flex;gap:8px}.choice button{flex:1}
+.quote{background:linear-gradient(135deg,#163b36,#245f52);color:white;border-radius:28px;padding:40px;text-align:center}.quote h2{margin:0 0 10px}.quote p{color:#d7eee7}
+footer{padding:35px 22px;text-align:center;color:var(--muted);font-size:13px}
+.small{font-size:13px;color:var(--muted)}.calc{font-size:13px;color:var(--muted);margin-top:10px}
+@media(max-width:800px){.links{display:none}.menu{display:block}.links.open{display:flex;position:absolute;top:65px;left:0;right:0;background:white;padding:18px 22px;border-bottom:1px solid #e8efed;flex-direction:column}.hero{grid-template-columns:1fr;text-align:center;padding-top:45px}.hero p{margin:auto}.actions{justify-content:center}.grid{grid-template-columns:1fr}.tipGrid,.row{grid-template-columns:1fr}.mascot{width:250px;height:250px}.mascot .face{font-size:95px}main{padding:0 16px}.section{padding:55px 0}}
+</style>
+</head>
+<body>
+<nav><div class="navin">
+<div class="logo">Need<span>lt</span></div>
+<div class="links" id="links">
+<a href="#home">Home</a><a href="#checker">Check a Purchase</a><a href="#tracker">Track Spending</a><a href="#simulator">Savings Simulator</a><a href="#fomo">FOMO Detector</a><a href="#tips">Smart Tips</a>
+</div><button class="menu" onclick="document.getElementById('links').classList.toggle('open')">☰</button>
+</div></nav>
+
+<main>
+<section class="hero" id="home">
+<div>
+<span class="badge">💡 Financial literacy for everyday life</span>
+<h1>Buy Smart,<br><span>Save More.</span></h1>
+<p>Think before you spend. Track your money, spot FOMO, and build better spending habits — one small decision at a time.</p>
+<div class="actions"><a class="btn primary" href="#checker">Check a Purchase</a><a class="btn secondary" href="#tracker">Start Tracking</a></div>
+<p class="small" style="margin-top:18px">Your money. Your choices. Your future.</p>
+</div>
+<div class="mascotWrap"><div class="mascot" aria-label="Needlt mascot"><div class="coin">🪙</div><div class="face">🦊</div><div class="spark">✨</div></div></div>
+</section>
+
+<section class="section">
+<h2>Small tools. Smarter choices.</h2><p class="sub">Needlt helps you pause, think, calculate, and decide before your money disappears.</p>
+<div class="grid">
+<div class="card"><div class="icon">🛒</div><h3>Need or Want?</h3><p>Check whether a purchase is useful, optional, or influenced by social media pressure.</p></div>
+<div class="card"><div class="icon">📊</div><h3>Track Spending</h3><p>See where your allowance goes and how much money you still have.</p></div>
+<div class="card"><div class="icon">🌱</div><h3>Save for Later</h3><p>Compare buying now with saving the same money for a future goal.</p></div>
+</div>
+</section>
+
+<section class="section" id="checker">
+<h2>🛒 Need or Want?</h2><p class="sub">Before buying, take a short pause. Your answers can reveal whether FOMO is influencing you.</p>
+<div class="tool">
+<div class="row"><div><label>What do you want to buy?</label><input id="item" placeholder="e.g. Trending sneakers"></div><div><label>Price (Rp)</label><input id="price" type="number" min="0" placeholder="150000"></div></div>
+<label>Why do you want it?</label><textarea id="reason" rows="3" placeholder="Tell Needlt what makes you want it..."></textarea>
+<div class="row"><div><label>Do you already own something similar?</label><select id="similar"><option value="no">No</option><option value="yes">Yes</option></select></div><div><label>Did social media influence you?</label><select id="social"><option value="no">No</option><option value="yes">Yes</option></select></div></div>
+<label>Do you feel you need to buy it now?</label><select id="rush"><option value="no">No, I can wait</option><option value="yes">Yes, I feel rushed</option></select>
+<button class="btn primary" style="margin-top:18px" onclick="checkPurchase()">Check My Purchase</button>
+<div id="purchaseResult" class="result"></div>
+</div></section>
+
+<section class="section" id="tracker">
+<h2>📊 Track Your Spending</h2><p class="sub">You don't need to be a finance expert. Start with one simple number: how much money you have.</p>
+<div class="tool">
+<div class="row"><div><label>Money available (Rp)</label><input id="income" type="number" placeholder="500000" oninput="updateTracker()"></div><div><label>Total spending (Rp)</label><input id="spent" type="number" placeholder="275000" oninput="updateTracker()"></div></div>
+<div style="margin-top:22px"><div class="muted">Money left</div><div class="money" id="left">Rp0</div><div class="progress"><div class="bar" id="spendBar"></div></div><div id="spendText" class="calc">Enter your numbers to see your spending progress.</div></div>
+</div></section>
+
+<section class="section" id="simulator">
+<h2>🌱 What If I Saved It?</h2><p class="sub">See how one spending decision can change your future savings.</p>
+<div class="tool">
+<div class="row"><div><label>Current savings (Rp)</label><input id="saving" type="number" placeholder="300000"></div><div><label>Purchase price (Rp)</label><input id="buyPrice" type="number" placeholder="150000"></div></div>
+<div class="row"><div><label>Extra savings each month (Rp)</label><input id="monthly" type="number" placeholder="100000"></div><div><label>Time (months)</label><input id="months" type="number" value="6" min="1" max="60"></div></div>
+<button class="btn primary" style="margin-top:18px" onclick="simulate()">Compare My Future</button>
+<div id="simResult" class="result"></div>
+</div></section>
+
+<section class="section" id="fomo">
+<h2>🚦 Is FOMO Making You Buy?</h2><p class="sub">Answer honestly. This isn't a test — it's a moment to check your decision.</p>
+<div class="tool" id="fomoTool"></div>
+</section>
+
+<section class="section" id="tips">
+<h2>🧠 Smart Money Tips</h2><p class="sub">Simple habits that work in real life — especially when social media makes everything feel urgent.</p>
+<div class="tipGrid">
+<div class="tip"><div class="icon">⏰</div><div><b>Use the 24-Hour Rule</b><p>Wait one day before buying an unplanned item. The urge may become smaller.</p></div></div>
+<div class="tip"><div class="icon">📝</div><div><b>Track Every Purchase</b><p>Small purchases add up. Recording them helps you see where your money really goes.</p></div></div>
+<div class="tip"><div class="icon">🎯</div><div><b>Needs Before Wants</b><p>Handle important expenses first, then decide what you can spend for fun.</p></div></div>
+<div class="tip"><div class="icon">💳</div><div><b>Set a Spending Limit</b><p>Give yourself a weekly or monthly shopping limit before scrolling.</p></div></div>
+<div class="tip"><div class="icon">🔕</div><div><b>Reduce Buying Pressure</b><p>Mute accounts that constantly push products you don't actually need.</p></div></div>
+<div class="tip"><div class="icon">🤔</div><div><b>Ask One Question</b><p>“Would I still want this if I had never seen it on social media?”</p></div></div>
+</div>
+<div class="tool" style="margin-top:25px;background:#effaf6">
+<h3 style="margin-top:0">⭐ Most realistic habit</h3>
+<p class="muted">For Indonesian teenagers, a practical starting point is <b>tracking spending + the 24-hour rule</b>. Both are free, easy to do with a phone, and don't require advanced financial knowledge. Together, they help you see where your money goes and create a pause before FOMO turns into a purchase.</p>
+</div>
+</section>
+
+<section class="section"><div class="quote"><h2>Your money. Your choices. Your future.</h2><p>Start with one small habit today: think before you spend.</p><a class="btn" style="background:white;color:#163b36" href="#checker">Start My Money Check</a></div></section>
+</main>
+<footer>Needlt © 2026 · Buy Smart, Save More · An educational financial literacy project</footer>
+
+<script>
+function rupiah(n){return 'Rp'+Math.max(0,Math.round(n||0)).toLocaleString('id-ID')}
+function checkPurchase(){
+ const item=document.getElementById('item').value||'this item', price=+document.getElementById('price').value||0, social=document.getElementById('social').value, rush=document.getElementById('rush').value, similar=document.getElementById('similar').value;
+ let score=(social==='yes'?2:0)+(rush==='yes'?2:0)+(similar==='yes'?1:0), r=document.getElementById('purchaseResult');
+ r.className='result show '+(score>=3?'fomo':score===0?'need':'want');
+ if(score>=3) r.innerHTML='<b>🚦 FOMO ALERT</b><br>You may be buying '+item+' because of social media pressure or urgency. Try the 24-hour rule before spending '+rupiah(price)+'.';
+ else if(score===0) r.innerHTML='<b>✅ Looks like a thoughtful choice</b><br>You seem to have considered the purchase carefully. Make sure '+rupiah(price)+' still fits your budget.';
+ else r.innerHTML='<b>💭 Maybe wait first</b><br>'+item+' could be a want rather than a need. Ask yourself: “Would I still buy it if I had never seen it online?”';
+}
+function updateTracker(){
+ const income=+document.getElementById('income').value||0, spent=+document.getElementById('spent').value||0, left=income-spent;
+ document.getElementById('left').textContent=rupiah(left);
+ const pct=income?Math.min(100,Math.max(0,spent/income*100)):0; document.getElementById('spendBar').style.width=pct+'%';
+ document.getElementById('spendText').textContent=income?(spent>income?'⚠️ You have spent more than your available money.':Math.round(pct)+'% of your available money has been spent.'): 'Enter your numbers to see your spending progress.';
+}
+function simulate(){
+ const s=+document.getElementById('saving').value||0,p=+document.getElementById('buyPrice').value||0,m=+document.getElementById('monthly').value||0,mo=+document.getElementById('months').value||1;
+ const buy=Math.max(0,s-p)+m*mo, save=s+m*mo, diff=save-buy, r=document.getElementById('simResult');
+ r.className='result show '+(diff>0?'need':'want');
+ r.innerHTML='<b>After '+mo+' months:</b><br>🌱 If you save instead: <strong>'+rupiah(save)+'</strong><br>🛍️ If you buy it now: <strong>'+rupiah(buy)+'</strong><br><br><strong>You could have '+rupiah(Math.abs(diff))+' more</strong> if you keep the money instead.';
+}
+const qs=[
+'Did you discover this product because it was trending on social media?',
+'Are you afraid the product will sell out or the discount will disappear?',
+'Are your friends or influencers buying it?',
+'Do you feel like you need it immediately?',
+'Would you still want it if you had never seen it online?'
+];
+const ft=document.getElementById('fomoTool'); let answers=Array(qs.length).fill(null);
+function renderFomo(){
+ ft.innerHTML=qs.map((q,i)=>`<div class="fomoQ"><p>${i+1}. ${q}</p><div class="choice"><button class="btn secondary" onclick="ans(${i},'yes')">Yes</button><button class="btn secondary" onclick="ans(${i},'maybe')">Maybe</button><button class="btn secondary" onclick="ans(${i},'no')">No</button></div></div>`).join('')+'<button class="btn primary" style="margin-top:12px" onclick="fomoResult()">See My FOMO Check</button><div id="fomoResult" class="result"></div>';
+}
+function ans(i,v){answers[i]=v;event.currentTarget.parentElement.querySelectorAll('button').forEach(b=>b.style.opacity='.55');event.currentTarget.style.opacity='1'}
+function fomoResult(){
+ if(answers.includes(null)){alert('Please answer all five questions first.');return}
+ let score=answers.reduce((a,v)=>a+(v==='yes'?2:v==='maybe'?1:0),0),r=document.getElementById('fomoResult');
+ r.className='result show '+(score>=7?'fomo':score>=3?'want':'need');
+ r.innerHTML=score>=7?'<b>🚨 High FOMO</b><br>Pause before buying. Try waiting 24 hours and review your budget.':score>=3?'<b>⚠️ Medium FOMO</b><br>Take a little more time. Compare the purchase with your savings goal.':'<b>🌱 Low FOMO</b><br>You seem to be making a more independent decision. Keep checking your budget before buying.';
+}
+renderFomo();
+</script>
+</body></html>
